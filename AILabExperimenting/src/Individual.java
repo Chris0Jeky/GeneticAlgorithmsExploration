@@ -23,9 +23,12 @@ public class Individual implements Comparable<Individual> {
         return Integer.compare(this.fitness, other.fitness);
     }
 
+    // Updated evaluation method
     public int evaluate() {
-        for (int i = 0; i < genes.length; i++) {
-            fitness += genes[i];
+        // Reset fitness before calculation
+        fitness = 0;
+        for (int gene : genes) {
+            fitness += gene;
         }
         return fitness;
     }
