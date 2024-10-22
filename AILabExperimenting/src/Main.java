@@ -34,11 +34,21 @@ public class Main {
 
         // Print specific individual details (if needed)
         printIndividual(population, 0);
+
+        System.out.println(population.getIndividuals()[0].compareTo(population.getIndividuals()[1]));
+
+        printEvaluatedPopulation(population.evaluate());
     }
 
     public static void printGenesInPopulation(Population population) {
         for (Individual individual : population.getIndividuals()) {
             System.out.println(Arrays.toString(individual.genes));
+        }
+    }
+
+    public static void printEvaluatedPopulation(int[][] evaluatedPopulation) {
+        for (int[] individual : evaluatedPopulation) {
+            System.out.println(Arrays.toString(individual));
         }
     }
 
@@ -50,6 +60,7 @@ public class Main {
         Individual offspring1 = new Individual(GENE_LENGTH);
         Individual offspring2 = new Individual(GENE_LENGTH);
         int crossoverPoint = random.nextInt(GENE_LENGTH);
+        System.out.println("crossover point: " + crossoverPoint);
 
         for (int i = 0; i < GENE_LENGTH; i++) {
             if (i < crossoverPoint) {
