@@ -33,6 +33,11 @@ public class Population {
         return fitnessValues;
     }
 
+    public void setIndividuals(Individual[] newIndividuals) {
+        this.individuals = newIndividuals;
+    }
+
+
     public void sortIndividuals() {
         Arrays.sort(individuals);
     }
