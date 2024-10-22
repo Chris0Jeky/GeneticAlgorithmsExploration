@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class Main {
     static final int GENE_LENGTH = 20;
     static final int POPULATION_SIZE = 10;
-    static final Random RANDOM = new Random();
+    static Random RANDOM = new Random();
+    Population population = new Population(POPULATION_SIZE, GENE_LENGTH);
 
     public static void main(String[] args) {
 
