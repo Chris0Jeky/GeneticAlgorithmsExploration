@@ -25,6 +25,19 @@ public class Population {
         }
     }
 
+    public int[][] evaluate() {
+        int[][] totalEvaluation = new int[populationSize][populationSize];
+        for (int i = 0; i < populationSize; i++) {
+            totalEvaluation[i] = new int[]{i};
+            for (int j = 0; j < populationSize; j++) {
+                totalEvaluation[i][j] = individuals[j].evaluate();
+
+            }
+        }
+
+        return totalEvaluation;
+    }
+
     public void sortIndividuals() {
         Arrays.sort(individuals);
     }
