@@ -18,9 +18,11 @@ public class Population {
         return individuals;
     }
 
-    public Individual[] setIndividuals(Individual[] individuals) {
-        this.individuals = individuals;
-        return individuals;
+    // Updated method to update specific individuals in the population
+    public void updateIndividual(int index, Individual individual) {
+        if (index >= 0 && index < populationSize) {
+            individuals[index] = individual;
+        }
     }
 
     public void sortIndividuals() {
