@@ -25,17 +25,12 @@ public class Population {
         }
     }
 
-    public int[][] evaluate() {
-        int[][] totalEvaluation = new int[populationSize][populationSize];
+    public int[] evaluate() {
+        int[] fitnessValues = new int[populationSize];
         for (int i = 0; i < populationSize; i++) {
-            totalEvaluation[i] = new int[]{i};
-            for (int j = 0; j < populationSize; j++) {
-                totalEvaluation[i][j] = individuals[j].evaluate();
-
-            }
+            fitnessValues[i] = individuals[i].evaluate();
         }
-
-        return totalEvaluation;
+        return fitnessValues;
     }
 
     public void sortIndividuals() {
