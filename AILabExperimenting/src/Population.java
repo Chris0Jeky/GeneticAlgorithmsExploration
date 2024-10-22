@@ -18,6 +18,11 @@ public class Population {
         return individuals;
     }
 
+    public Individual[] setIndividuals(Individual[] individuals) {
+        this.individuals = individuals;
+        return individuals;
+    }
+
     public void sortIndividuals() {
         Arrays.sort(individuals);
     }
