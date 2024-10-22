@@ -12,34 +12,73 @@ public class Main {
         System.out.print("Enter population size: ");
         int populationSize = scanner.nextInt();
 
+        System.out.print("Enter mutation rate (e.g., 0.01 for 1%): ");
+        double mutationRate = scanner.nextDouble();
+
+        System.out.print("Enter number of generations: ");
+        int maxGenerations = scanner.nextInt();
+
         System.out.println("GENE_LENGTH: " + GENE_LENGTH);
         System.out.println("POPULATION_SIZE: " + populationSize);
 
         // Initialize the population
         Population population = new Population(populationSize, GENE_LENGTH);
 
-        // Print initial genes of the population
-        printGenesInPopulation(population);
+        // Variables to keep track of the best individual
+        Individual bestIndividual = null;
+        int bestFitness = Integer.MAX_VALUE;
 
-        int[] evaluatedPopulation = population.evaluate();
-        System.out.println("\nEvaluated Population:");
-        printEvaluatedPopulation(evaluatedPopulation);
+        // Start the evolution process
+        for (int generation = 0; generation < maxGenerations; generation++) {
+            // Evaluate the population
+            int[] evaluatedPopulation = population.evaluate();
 
-        // Perform crossover on two individuals
-        Individual[] offspring = crossover(population.getIndividuals()[0], population.getIndividuals()[1]);
+            // Keep track of the best individual
+            for (int i = 0; i < populationSize; i++) {
+                if (population.getIndividuals()[i].fitness < bestFitness) {
+                    bestFitness = population.getIndividuals()[i].fitness;
+                    bestIndividual = new Individual(GENE_LENGTH);
+                    System.arraycopy(population.getIndividuals()[i].genes, 0, bestIndividual.genes, 0, GENE_LENGTH);
+                    bestIndividual.fitness = population.getIndividuals()[i].fitness;
+                }
+            }
 
-        // Update population with the offspring
-        population.updateIndividual(0, offspring[0]);
-        population.updateIndividual(1, offspring[1]);
+            // Output the current generation's best fitness
+            System.out.println("Generation " + generation + ": Best Fitness = " + bestFitness);
 
-        // Print the updated population
-        System.out.println("\nUpdated Population:");
-        printGenesInPopulation(population);
+            // Create a new population
+            Individual[] newIndividuals = new Individual[populationSize];
 
-        // Evaluate the population and print the results
-        evaluatedPopulation = population.evaluate();
-        System.out.println("\nEvaluated Population:");
-        printEvaluatedPopulation(evaluatedPopulation);
+            // Elitism: carry over the best individual to the new population
+            newIndividuals[0] = bestIndividual;
+
+            // Generate new individuals through crossover and mutation
+            for (int i = 1; i < populationSize; i += 2) {
+                // Selection
+                Individual parent1 = selectParent(population);
+                Individual parent2 = selectParent(population);
+
+                // Crossover
+                Individual[] offspring = crossover(parent1, parent2);
+
+                // Mutation
+                offspring[0].mutate(mutationRate, random);
+                if (i + 1 < populationSize) {
+                    offspring[1].mutate(mutationRate, random);
+                    newIndividuals[i + 1] = offspring[1];
+                }
+
+                newIndividuals[i] = offspring[0];
+            }
+
+            // Update the population with the new individuals
+            population.setIndividuals(newIndividuals);
+        }
+
+        // Output the best individual after all generations
+        System.out.println("\nBest Individual After " + maxGenerations + " Generations:");
+        System.out.println("Genes: " + Arrays.toString(bestIndividual.genes));
+        System.out.println("Fitness: " + bestFitness);
     }
 
     public static void printGenesInPopulation(Population population) {
@@ -58,7 +97,7 @@ public class Main {
         Individual offspring1 = new Individual(GENE_LENGTH);
         Individual offspring2 = new Individual(GENE_LENGTH);
         int crossoverPoint = random.nextInt(GENE_LENGTH);
-        System.out.println("crossover point: " + crossoverPoint);
+        // System.out.println("Crossover point: " + crossoverPoint);
 
         for (int i = 0; i < GENE_LENGTH; i++) {
             if (i < crossoverPoint) {
@@ -70,5 +109,27 @@ public class Main {
             }
         }
         return new Individual[]{offspring1, offspring2};
+    }
+
+    // Selection method (Tournament Selection)
+    public static Individual selectParent(Population population) {
+        int tournamentSize = 3;
+        Individual[] tournament = new Individual[tournamentSize];
+
+        // Randomly select individuals for the tournament
+        for (int i = 0; i < tournamentSize; i++) {
+            int randomIndex = random.nextInt(population.getIndividuals().length);
+            tournament[i] = population.getIndividuals()[randomIndex];
+        }
+
+        // Find the best individual in the tournament
+        Individual best = tournament[0];
+        for (int i = 1; i < tournamentSize; i++) {
+            if (tournament[i].fitness < best.fitness) {
+                best = tournament[i];
+            }
+        }
+
+        return best;
     }
 }
