@@ -21,6 +21,10 @@ public class Main {
         // Print initial genes of the population
         printGenesInPopulation(population);
 
+        int[] evaluatedPopulation = population.evaluate();
+        System.out.println("\nEvaluated Population:");
+        printEvaluatedPopulation(evaluatedPopulation);
+
         // Perform crossover on two individuals
         Individual[] offspring = crossover(population.getIndividuals()[0], population.getIndividuals()[1]);
 
@@ -33,7 +37,7 @@ public class Main {
         printGenesInPopulation(population);
 
         // Evaluate the population and print the results
-        int[] evaluatedPopulation = population.evaluate();
+        evaluatedPopulation = population.evaluate();
         System.out.println("\nEvaluated Population:");
         printEvaluatedPopulation(evaluatedPopulation);
     }
