@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class Population {
     private Individual[] individuals;
-    private int populationSize;
+    private final int populationSize;
 
     public Population(int populationSize, int geneLength) {
         this.populationSize = populationSize;
