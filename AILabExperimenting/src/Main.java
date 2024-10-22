@@ -32,12 +32,10 @@ public class Main {
         System.out.println("\nUpdated Population:");
         printGenesInPopulation(population);
 
-        // Print specific individual details (if needed)
-        printIndividual(population, 0);
-
-        System.out.println(population.getIndividuals()[0].compareTo(population.getIndividuals()[1]));
-
-        printEvaluatedPopulation(population.evaluate());
+        // Evaluate the population and print the results
+        int[] evaluatedPopulation = population.evaluate();
+        System.out.println("\nEvaluated Population:");
+        printEvaluatedPopulation(evaluatedPopulation);
     }
 
     public static void printGenesInPopulation(Population population) {
@@ -46,14 +44,10 @@ public class Main {
         }
     }
 
-    public static void printEvaluatedPopulation(int[][] evaluatedPopulation) {
-        for (int[] individual : evaluatedPopulation) {
-            System.out.println(Arrays.toString(individual));
+    public static void printEvaluatedPopulation(int[] evaluatedPopulation) {
+        for (int i = 0; i < evaluatedPopulation.length; i++) {
+            System.out.println("Individual " + i + " fitness: " + evaluatedPopulation[i]);
         }
-    }
-
-    public static void printIndividual(Population population, int indexOfIndividual) {
-        System.out.println(Arrays.toString(population.getIndividuals()[indexOfIndividual].genes));
     }
 
     public static Individual[] crossover(Individual parent1, Individual parent2) {
