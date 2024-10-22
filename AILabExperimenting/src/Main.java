@@ -1,12 +1,10 @@
 import java.util.Arrays;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Main {
     static final int GENE_LENGTH = 20;
     static final int POPULATION_SIZE = 10;
     static Random RANDOM = new Random();
-    Population population = new Population(POPULATION_SIZE, GENE_LENGTH);
 
     public static void main(String[] args) {
 
@@ -14,14 +12,12 @@ public class Main {
         System.out.println("POPULATION_SIZE: " + POPULATION_SIZE);
         System.out.println("RANDOM: " + RANDOM.nextInt());
 
-        Individual[] population = new Individual[POPULATION_SIZE];
+        // Initialize the population
+        Population population = new Population(POPULATION_SIZE, GENE_LENGTH);
 
+        // Display genes of each individual in the population
         for (int i = 0; i < POPULATION_SIZE; i++) {
-            population[i] = new Individual(GENE_LENGTH);
-            population[i].generateRandomGenes();
-        }
-        for (int i = 0; i < POPULATION_SIZE; i++) {
-            System.out.println(Arrays.toString(population[i].genes));
+            System.out.println(Arrays.toString(population.getIndividuals()[i].genes));
         }
     }
 }
