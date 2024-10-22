@@ -16,7 +16,7 @@ public class Main {
         Individual[] population = new Individual[POPULATION_SIZE];
 
         for (int i = 0; i < POPULATION_SIZE; i++) {
-            population[i] = new Individual();
+            population[i] = new Individual(GENE_LENGTH);
             population[i].generateRandomGenes();
         }
     }
