@@ -1,8 +1,8 @@
 import java.util.Arrays;
 
 public class Population {
-    Individual[] population;
-    int populationSize;
+    private Individual[] individuals;
+    private int populationSize;
 
     public Population(int populationSize, int geneLength) {
         this.populationSize = populationSize;
@@ -12,6 +12,10 @@ public class Population {
             individuals[i] = new Individual(geneLength);
             individuals[i].generateRandomGenes();
         }
+    }
+
+    public Individual[] getIndividuals() {
+        return individuals;
     }
 
     public void sortIndividuals() {
