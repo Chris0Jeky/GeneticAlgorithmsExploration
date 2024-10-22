@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Population {
     Individual[] population;
     int populationSize;
@@ -13,6 +15,6 @@ public class Population {
     }
 
     public void sortIndividuals() {
-        Array.sort(individuals);
+        Arrays.sort(individuals);
     }
 }
