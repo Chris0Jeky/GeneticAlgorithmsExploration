@@ -19,5 +19,8 @@ public class Main {
             population[i] = new Individual(GENE_LENGTH);
             population[i].generateRandomGenes();
         }
+        for (int i = 0; i < POPULATION_SIZE; i++) {
+            System.out.println(Arrays.toString(population[i].genes));
+        }
     }
 }
