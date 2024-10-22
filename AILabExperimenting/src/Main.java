@@ -1,22 +1,26 @@
 import java.util.Arrays;
-import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
     static final int GENE_LENGTH = 20;
-    static final int POPULATION_SIZE = 10;
-    static Random RANDOM = new Random();
+    static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
 
+        System.out.print("Enter population size: ");
+        int populationSize = scanner.nextInt();
+
         System.out.println("GENE_LENGTH: " + GENE_LENGTH);
-        System.out.println("POPULATION_SIZE: " + POPULATION_SIZE);
-        System.out.println("RANDOM: " + RANDOM.nextInt());
+        System.out.println("POPULATION_SIZE: " + populationSize);
 
         // Initialize the population
-        Population population = new Population(POPULATION_SIZE, GENE_LENGTH);
+        Population population = new Population(populationSize, GENE_LENGTH);
 
-        // Display genes of each individual in the population
-        for (int i = 0; i < POPULATION_SIZE; i++) {
+        printGenesInPopulation(population, populationSize);
+    }
+
+    public static void printGenesInPopulation(Population population, int populationSize) {
+        for (int i = 0; i < populationSize; i++) {
             System.out.println(Arrays.toString(population.getIndividuals()[i].genes));
         }
     }
