@@ -20,8 +20,4 @@ public class Main {
             population[i].generateRandomGenes();
         }
     }
-
-    public static class Individual {
-        
-    }
 }
