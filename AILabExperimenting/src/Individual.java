@@ -17,13 +17,22 @@ public class Individual implements Comparable<Individual> {
         }
     }
 
+    // Mutation method
+    public void mutate(double mutationRate, Random random) {
+        for (int i = 0; i < genes.length; i++) {
+            if (random.nextDouble() < mutationRate) {
+                genes[i] = random.nextInt(10); // Mutate gene
+            }
+        }
+    }
+
     // Method for comparing individuals based on fitness
     @Override
     public int compareTo(Individual other) {
         return Integer.compare(this.fitness, other.fitness);
     }
 
-    // Updated evaluation method
+    // Evaluation method
     public int evaluate() {
         // Reset fitness before calculation
         fitness = 0;
