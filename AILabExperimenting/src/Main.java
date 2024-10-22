@@ -13,5 +13,15 @@ public class Main {
         System.out.println("POPULATION_SIZE: " + POPULATION_SIZE);
         System.out.println("RANDOM: " + RANDOM.nextInt());
 
+        Individual[] population = new Individual[POPULATION_SIZE];
+
+        for (int i = 0; i < POPULATION_SIZE; i++) {
+            population[i] = new Individual();
+            population[i].generateRandomGenes();
+        }
+    }
+
+    public static class Individual {
+        
     }
 }
