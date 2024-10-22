@@ -18,24 +18,27 @@ public class Main {
         // Initialize the population
         Population population = new Population(populationSize, GENE_LENGTH);
 
-        printGenesInPopulation(population, populationSize);
+        // Print initial genes of the population
+        printGenesInPopulation(population);
 
-        System.out.println("\n\n");
-        System.out.println(population.getIndividuals()[0].toString());
-        System.out.println(population.getIndividuals()[1].toString());
+        // Perform crossover on two individuals
+        Individual[] offspring = crossover(population.getIndividuals()[0], population.getIndividuals()[1]);
 
-        crossover(population.getIndividuals()[0], population.getIndividuals()[1]);
+        // Update population with the offspring
+        population.updateIndividual(0, offspring[0]);
+        population.updateIndividual(1, offspring[1]);
 
-        System.out.println("\n\n");
-        System.out.println(population.getIndividuals()[0].toString());
-        System.out.println(population.getIndividuals()[1].toString());
+        // Print the updated population
+        System.out.println("\nUpdated Population:");
+        printGenesInPopulation(population);
 
+        // Print specific individual details (if needed)
         printIndividual(population, 0);
     }
 
-    public static void printGenesInPopulation(Population population, int populationSize) {
-        for (int i = 0; i < populationSize; i++) {
-            System.out.println(Arrays.toString(population.getIndividuals()[i].genes));
+    public static void printGenesInPopulation(Population population) {
+        for (Individual individual : population.getIndividuals()) {
+            System.out.println(Arrays.toString(individual.genes));
         }
     }
 
@@ -59,5 +62,4 @@ public class Main {
         }
         return new Individual[]{offspring1, offspring2};
     }
-
 }
